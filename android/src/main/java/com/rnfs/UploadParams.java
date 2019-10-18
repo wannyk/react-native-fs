@@ -22,6 +22,8 @@ public class UploadParams {
     public ReadableMap headers;
     public ReadableMap fields;
     public String method;
+    public int readTimeout;
+    public int connectionTimeout;
     public onUploadComplete onUploadComplete;
     public onUploadProgress onUploadProgress;
     public onUploadBegin onUploadBegin;

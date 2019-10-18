@@ -121,6 +121,8 @@ public class Uploader extends AsyncTask<UploadParams, int[], UploadResult> {
                 connection.setRequestProperty("Content-length", "" +(int) requestLength);
                 connection.setFixedLengthStreamingMode((int)requestLength);
             }
+            connection.setConnectTimeout(params.connectionTimeout);
+            connection.setReadTimeout(params.readTimeout);
             connection.connect();
 
             request = new DataOutputStream(connection.getOutputStream());

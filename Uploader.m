@@ -20,7 +20,7 @@
 
   NSString *method = _params.method;
   NSURL *url = [NSURL URLWithString:_params.toUrl];
-  NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+  NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:_params.readTimeout.intValue / 1000.0];
   [req setHTTPMethod:method];
   BOOL binaryStreamOnly = _params.binaryStreamOnly;
 

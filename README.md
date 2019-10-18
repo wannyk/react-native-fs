@@ -595,6 +595,8 @@ type UploadFileOptions = {
   method?: string;          // Default is 'POST', supports 'POST' and 'PUT'
   begin?: (res: UploadBeginCallbackResult) => void;
   progress?: (res: UploadProgressCallbackResult) => void;
+  connectionTimeout?: number // only supported on Android yet
+  readTimeout?: number       // supported on Android and iOS
 };
 
 ```

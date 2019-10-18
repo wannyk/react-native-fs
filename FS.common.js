@@ -106,6 +106,8 @@ type UploadFileOptions = {
   progressCallback?: (res: UploadProgressCallbackResult) => void; // deprecated
   begin?: (res: UploadBeginCallbackResult) => void;
   progress?: (res: UploadProgressCallbackResult) => void;
+  connectionTimeout?: number; // only supported on Android yet
+  readTimeout?: number;       // supported on Android and iOS
 };
 
 type UploadFileItem = {
@@ -545,6 +547,8 @@ var RNFS = {
     if (options.headers && typeof options.headers !== 'object') throw new Error('uploadFiles: Invalid value for property `headers`');
     if (options.fields && typeof options.fields !== 'object') throw new Error('uploadFiles: Invalid value for property `fields`');
     if (options.method && typeof options.method !== 'string') throw new Error('uploadFiles: Invalid value for property `method`');
+    if (options.readTimeout && typeof options.readTimeout !== 'number') throw new Error('uploadFiles: Invalid value for property `readTimeout`');
+    if (options.connectionTimeout && typeof options.connectionTimeout !== 'number') throw new Error('uploadFiles: Invalid value for property `connectionTimeout`');
 
     if (options.begin) {
       subscriptions.push(NativeAppEventEmitter.addListener('UploadBegin-' + jobId, options.begin));
@@ -569,7 +573,9 @@ var RNFS = {
       binaryStreamOnly: options.binaryStreamOnly || false,
       headers: options.headers || {},
       fields: options.fields || {},
-      method: options.method || 'POST'
+      method: options.method || 'POST',
+      readTimeout: options.readTimeout || 15000,
+      connectionTimeout: options.connectionTimeout || 5000
     };
 
     return {
